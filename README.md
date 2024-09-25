@@ -27,6 +27,6 @@
   ```
 # 3. Run the Node
 - After sourcing the setup.bash ...
-  ```
+  ```ruby
   rosrun pc_processor pc_processor
   ```
