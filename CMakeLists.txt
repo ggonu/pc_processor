@@ -20,8 +20,14 @@ include_directories(
 )
 
 add_executable(pc_processor src/pc_processor.cpp)
+add_executable(transform_lidar_camera src/transform_lidar_camera.cpp)
 
 target_link_libraries(pc_processor
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}
+)
+
+target_link_libraries(transform_lidar_camera
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
 )
