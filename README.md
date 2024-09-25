@@ -31,3 +31,11 @@
   ```bash
   rosrun pc_processor pc_processor
   ```
+- Subscribe (PointCloud2)
+  ```ruby
+  depth_cloud
+  ```
+- Publish (PointCloud2)
+  ```ruby
+  trans_depth_cloud
+  ```
