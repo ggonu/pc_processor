@@ -12,7 +12,7 @@
   sudo apt-get install ros-noetic-pcl-ros ros-noetic-tf ros-noetic-tf2-ros ros-noetic-cv-bridge ros-noetic-pcl-ros libopencv-dev python3-opencv
   ```
 
-# 2. Install & Build
+# 2. Clone & Build
 - Run the following commands in terminal
   ```bash
   cd catkin_ws/src
