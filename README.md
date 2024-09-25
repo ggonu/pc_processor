@@ -6,27 +6,27 @@
 - Ubuntu 20.04 focal
 - ROS Noetic
 - Dependencies
-  ```ruby
+  ```bash
   sudo apt-get update
   sudo apt-get install ros-noetic-pcl-ros ros-noetic-tf ros-noetic-tf2-ros ros-noetic-cv-bridge ros-noetic-pcl-ros libopencv-dev python3-opencv
   ```
 
 # 2. Install & Build
 - Run the following commands in terminal
-  ```ruby
+  ```bash
   cd catkin_ws/src
   git clone https://github.com/ggonu/pc_processor.git
   ```
 - build
-  ```ruby
+  ```bash
   cd ..
   catkin_make
   ```
-  ```ruby
+  ```bash
   source devel/setup.bash
   ```
 # 3. Run the Node
 - After sourcing the setup.bash ...
-  ```ruby
+  ```bash
   rosrun pc_processor pc_processor
   ```
