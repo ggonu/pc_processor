@@ -54,3 +54,5 @@
   /dbscan_clusters
   /dbscan_cluster_centroids
   ```
+- For example, you can see MarkerArray that visualize the boundary of cluster.
+  ![24-10-04_dbscan-test_3](https://github.com/user-attachments/assets/d1bd6ad4-0f75-4a0e-8a91-50cefb33b554)
