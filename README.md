@@ -41,6 +41,7 @@
   /trans_depth_cloud
   ```
 ## 3-2. dbscan
+**Do not use this node. (2024-10-04)**
 - After sourcing the setup.bash ...
   ```bash
   rosrun pc_processor dbscan
