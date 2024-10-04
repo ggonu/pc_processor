@@ -27,15 +27,30 @@
   source devel/setup.bash
   ```
 # 3. Run the Node
+## 3-1. pc_processor
 - After sourcing the setup.bash ...
   ```bash
   rosrun pc_processor pc_processor
   ```
 - Subscribe (PointCloud2)
   ```ruby
-  depth_cloud
+  /depth_cloud
   ```
 - Publish (PointCloud2)
   ```ruby
-  trans_depth_cloud
+  /trans_depth_cloud
+  ```
+## 3-2. dbscan
+- After sourcing the setup.bash ...
+  ```bash
+  rosrun pc_processor dbscan
+  ```
+- Subscribe (PointCloud2)
+  ```ruby
+  /point_cloud
+  ```
+- Publish (PointCloud2, MarkerArray)
+  ```ruby
+  /dbscan_clusters
+  /dbscan_cluster_centroids
   ```
