@@ -68,7 +68,8 @@ void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& inputCloud, pcl
     pcl::PassThrough<pcl::PointXYZ> pass;
     pass.setInputCloud(inputCloud);
     pass.setFilterFieldName("x");
-    pass.setFilterLimits(-3.0, 3.0); // Adjust the range for the robot's forward direction
+    pass.setFilterLimits(0.0, 3.0); // Adjust the range for the robot's forward direction
+    pass.setFilterLimitsNegative(false);
     pass.filter(*filteredCloud);
     
     pass.setInputCloud(filteredCloud);
