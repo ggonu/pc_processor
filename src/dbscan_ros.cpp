@@ -68,13 +68,13 @@ void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& inputCloud, pcl
     pcl::PassThrough<pcl::PointXYZ> pass;
     pass.setInputCloud(inputCloud);
     pass.setFilterFieldName("x");
-    pass.setFilterLimits(0.0, 3.0); // Adjust the range for the robot's forward direction
+    pass.setFilterLimits(0.0, 8.0); // Adjust the range for the robot's forward direction
     pass.setFilterLimitsNegative(false);
     pass.filter(*filteredCloud);
     
     pass.setInputCloud(filteredCloud);
     pass.setFilterFieldName("y");
-    pass.setFilterLimits(-3.0, 3.0); // Adjust the range for side-to-side direction
+    pass.setFilterLimits(-4.0, 4.0); // Adjust the range for side-to-side direction
     pass.filter(*filteredCloud);
 }
 
@@ -85,7 +85,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Apply down-sampling using VoxelGrid filter (before normal estimation)
     pcl::VoxelGrid<pcl::PointXYZ> vg;
     vg.setInputCloud(cCloud);
-    vg.setLeafSize(0.2f, 0.2f, 0.2f); // Adjust for more aggressive down-sampling
+    vg.setLeafSize(0.2f, 0.2f, 0.2f); // Adjust for down-sampling
     pcl::PointCloud<pcl::PointXYZ>::Ptr filteredCloud(new pcl::PointCloud<pcl::PointXYZ>());
     vg.filter(*filteredCloud);
 
@@ -99,7 +99,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     ne.setInputCloud(rangeFilteredCloud);
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
     ne.setSearchMethod(tree);
-    ne.setKSearch(30);  // Reduce number of neighbors for faster computation
+    ne.setKSearch(60);  // Reduce number of neighbors for faster computation (30)
     ne.compute(*normals);
 
     // Filter points based on normals
@@ -128,7 +128,18 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     }
 
     // *** Set parameters *** //
-    float eps = 0.5;  // Adjust for better clustering
+    // *** Vertical plane *** //
+    /* eps = 0.26, minPts = 6 */
+    
+    // ***  laying plane  *** //
+    /* eps = 1.00, minPts = 2 */
+    /* eps = 0.45, minPts = 6 */
+    /* eps = 0.35, minPts = 6 */
+    /* eps = 0.31, minPts = 6 */
+    /* eps = 0.30, minPts = 6 */
+    /* eps = 0.41, minPts = 6 */
+
+    float eps = 0.41;  // Adjust for better clustering
     int minPts = 6;
 
     // Run DBSCAN
