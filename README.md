@@ -27,6 +27,7 @@
   source devel/setup.bash
   ```
 # 3. Run the Node
+**!!** Don't forget **run roscore** before run those nodes. **!!**
 ## 3-1. pc_processor
 - After sourcing the setup.bash ...
   ```bash
