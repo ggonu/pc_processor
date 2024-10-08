@@ -2,6 +2,8 @@
 **Point Cloud Processing package (Tested on ROS noetic)**
 - This package is for **Coordinate Transform** using PointCloud2 data between camera and World Frame.
 - You can change those **topic name** and **Frame name** whatever you want.
+- Using the package with **Isaac Sim**
+  - If you want to interact with **Isaac Sim**, must lauch the **ROS Bridge Extension** when you launch the simulation before.
 
 # 1. Requirements
 - **Ubuntu 20.04 Focal**
