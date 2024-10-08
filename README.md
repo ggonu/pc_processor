@@ -4,6 +4,8 @@
 - You can change those **topic name** and **Frame name** whatever you want.
 - Using the package with **Isaac Sim**
   - If you want to interact with **Isaac Sim**, must lauch the **ROS Bridge Extension** when you launch the simulation before.
+    ![image](https://github.com/user-attachments/assets/2d073498-1c32-479c-b94b-8df47d21ec55)
+
 
 # 1. Requirements
 - **Ubuntu 20.04 Focal**
