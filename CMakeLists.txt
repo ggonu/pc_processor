@@ -12,12 +12,14 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(PCL REQUIRED)
+find_package(OpenCV REQUIRED)
 
 catkin_package()
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
@@ -29,6 +31,7 @@ add_executable(dbscan src/dbscan_ros.cpp)
 target_link_libraries(pc_processor
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 target_link_libraries(dbscan

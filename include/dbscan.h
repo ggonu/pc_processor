@@ -30,6 +30,7 @@ private:
     size_t mPtSize;
     unsigned int mMinPts;   // MinPts
     float mEps;         // Eps
+    
 
 
 public:

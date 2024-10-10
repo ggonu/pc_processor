@@ -67,14 +67,14 @@ void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& inputCloud, pcl
     // PassThrough filter for distance
     pcl::PassThrough<pcl::PointXYZ> pass;
     pass.setInputCloud(inputCloud);
-    pass.setFilterFieldName("x");
-    pass.setFilterLimits(0.0, 8.0); // Adjust the range for the robot's forward direction
-    pass.setFilterLimitsNegative(false);
+    pass.setFilterFieldName("y");
+    pass.setFilterLimits(-2.0, 2.0); // Adjust the range for the robot's forward direction
+    // pass.setFilterLimitsNegative(false);
     pass.filter(*filteredCloud);
     
     pass.setInputCloud(filteredCloud);
-    pass.setFilterFieldName("y");
-    pass.setFilterLimits(-4.0, 4.0); // Adjust the range for side-to-side direction
+    pass.setFilterFieldName("x");
+    pass.setFilterLimits(0.0, 6.0); // Adjust the range for side-to-side direction
     pass.filter(*filteredCloud);
 }
 
@@ -85,40 +85,52 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Apply down-sampling using VoxelGrid filter (before normal estimation)
     pcl::VoxelGrid<pcl::PointXYZ> vg;
     vg.setInputCloud(cCloud);
-    vg.setLeafSize(0.2f, 0.2f, 0.2f); // Adjust for down-sampling
+    vg.setLeafSize(0.15f, 0.15f, 0.15f); // Adjust for down-sampling // default: 0.2f, 0.2f, 0.2f
     pcl::PointCloud<pcl::PointXYZ>::Ptr filteredCloud(new pcl::PointCloud<pcl::PointXYZ>());
     vg.filter(*filteredCloud);
 
     // Apply angle and distance filtering using PassThrough
     pcl::PointCloud<pcl::PointXYZ>::Ptr rangeFilteredCloud(new pcl::PointCloud<pcl::PointXYZ>());
     filterPointCloud(filteredCloud, rangeFilteredCloud);
+    // filterPointCloud(cCloud, rangeFilteredCloud);
+
+    ROS_INFO("Filtered cloud size after PassThrough: %lu", rangeFilteredCloud->points.size());
+    if (rangeFilteredCloud->empty()) {
+        ROS_WARN("Filtered cloud is empty after PassThrough. Adjust the filter limits.");
+        return;
+    }
 
     // Estimate surface normals (after down-sampling)
     pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
     pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> ne;
-    ne.setInputCloud(rangeFilteredCloud);
+    ne.setInputCloud(rangeFilteredCloud); //rangeFilteredCloud
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
     ne.setSearchMethod(tree);
-    ne.setKSearch(60);  // Reduce number of neighbors for faster computation (30)
+    ne.setKSearch(30);  // Reduce number of neighbors for faster computation (30)
     ne.compute(*normals);
 
     // Filter points based on normals
     pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
     for (size_t i = 0; i < normals->points.size(); ++i) {
-        if (std::abs(normals->points[i].normal_z) > 0.9)
+        if (std::abs(normals->points[i].normal_z) < 0.1)
             inliers->indices.push_back(i);
     }
 
     pcl::ExtractIndices<pcl::PointXYZ> extract;
-    extract.setInputCloud(rangeFilteredCloud);
+    extract.setInputCloud(rangeFilteredCloud); //rangeFilteredCloud
     extract.setIndices(inliers);
     extract.setNegative(true);
     pcl::PointCloud<pcl::PointXYZ>::Ptr planeCloud(new pcl::PointCloud<pcl::PointXYZ>());
     extract.filter(*planeCloud);
 
+    if (planeCloud->empty()) {  // planeCloud
+        ROS_WARN("Extracted cloud is empty after normal filtering.");
+        return;
+    }
+
     // Convert to XYZI format
     pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
-    for (const auto& point : planeCloud->points) {
+    for (const auto& point : planeCloud->points) {  // planeCloud
         pcl::PointXYZI cvtCloud;
         cvtCloud.x = point.x;
         cvtCloud.y = point.y;
@@ -135,11 +147,14 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     /* eps = 1.00, minPts = 2 */
     /* eps = 0.45, minPts = 6 */
     /* eps = 0.35, minPts = 6 */
+
+    /* leaf size 0.2f */
     /* eps = 0.31, minPts = 6 */
+    
     /* eps = 0.30, minPts = 6 */
     /* eps = 0.41, minPts = 6 */
 
-    float eps = 0.41;  // Adjust for better clustering
+    float eps = 0.16;  // Adjust for better clustering
     int minPts = 6;
 
     // Run DBSCAN
@@ -183,7 +198,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "dbscan_node");
     ros::NodeHandle nh;
 
-    ros::Subscriber subCloud = nh.subscribe("/point_cloud", 1, cloudCallback);
+    ros::Subscriber subCloud = nh.subscribe("/trans_depth_cloud", 1, cloudCallback);  // default: "/point_cloud" or "/trans_depth_cloud" 
     pubClusteredCloud = nh.advertise<sensor_msgs::PointCloud2>("/dbscan_clusters", 1);
     pubMarkers = nh.advertise<visualization_msgs::MarkerArray>("/dbscan_cluster_centroids", 1);
 
