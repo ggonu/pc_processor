@@ -154,7 +154,8 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     /* eps = 0.30, minPts = 6 */
     /* eps = 0.41, minPts = 6 */
 
-    float eps = 0.16;  // Adjust for better clustering
+    // eps = 0.18
+    float eps = 0.18;  // Adjust for better clustering
     int minPts = 6;
 
     // Run DBSCAN
