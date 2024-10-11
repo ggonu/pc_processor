@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "dbscan_node");
     ros::NodeHandle nh;
 
-    ros::Subscriber subCloud = nh.subscribe("/trans_depth_cloud", 1, cloudCallback);  // default: "/point_cloud" or "/trans_depth_cloud" 
+    ros::Subscriber subCloud = nh.subscribe("/processed_cloud", 1, cloudCallback);  // default: "/point_cloud" or "/trans_depth_cloud" 
     pubClusteredCloud = nh.advertise<sensor_msgs::PointCloud2>("/dbscan_clusters", 1);
     pubMarkers = nh.advertise<visualization_msgs::MarkerArray>("/dbscan_cluster_centroids", 1);
 
