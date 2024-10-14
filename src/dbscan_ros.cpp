@@ -85,7 +85,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Apply down-sampling using VoxelGrid filter (before normal estimation)
     pcl::VoxelGrid<pcl::PointXYZ> vg;
     vg.setInputCloud(cCloud);
-    vg.setLeafSize(0.15f, 0.15f, 0.15f); // Adjust for down-sampling // default: 0.2f, 0.2f, 0.2f
+    vg.setLeafSize(0.1f, 0.1f, 0.1f); // Adjust for down-sampling // default: 0.2f, 0.2f, 0.2f
     pcl::PointCloud<pcl::PointXYZ>::Ptr filteredCloud(new pcl::PointCloud<pcl::PointXYZ>());
     vg.filter(*filteredCloud);
 
@@ -106,7 +106,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     ne.setInputCloud(rangeFilteredCloud); //rangeFilteredCloud
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
     ne.setSearchMethod(tree);
-    ne.setKSearch(30);  // Reduce number of neighbors for faster computation (30)
+    ne.setKSearch(16);  // Reduce number of neighbors for faster computation (30)
     ne.compute(*normals);
 
     // Filter points based on normals
@@ -155,7 +155,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     /* eps = 0.41, minPts = 6 */
 
     // eps = 0.18
-    float eps = 0.18;  // Adjust for better clustering
+    float eps = 0.15;  // Adjust for better clustering
     int minPts = 6;
 
     // Run DBSCAN

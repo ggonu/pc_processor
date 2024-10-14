@@ -4,12 +4,13 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <tf/transform_listener.h>
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr mCloud(new pcl::PointCloud<pcl::PointXYZ>());
 ros::Publisher pub;
 
 ros::Time lastHeaderStamp;
-double sweepDuration = 0.0; // LiDAR scan sweep rate
+double sweepDuration = 0.1; // LiDAR scan sweep rate
 
 
 void pointCloudCallBack(const sensor_msgs::PointCloud2ConstPtr& msg) {
@@ -30,6 +31,14 @@ void pointCloudCallBack(const sensor_msgs::PointCloud2ConstPtr& msg) {
 
         mCloud->clear();
         lastHeaderStamp = msg->header.stamp;
+    }
+
+    static tf::TransformListener listener;
+    tf::StampedTransform transform;
+    try {
+        listener.waitForTransform("/World", "/Lidar", ros::Time(0), ros::Duration(1.0));
+        listener.lookupTransform("/World", "/Lidar", ros::Time(0), transform);
+        
     }
 }
 
