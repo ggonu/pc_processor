@@ -49,16 +49,16 @@ void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     static tf::TransformListener listener;
     tf::StampedTransform transform;
     try {
-        listener.waitForTransform("/World", "/Camera_OmniVision_OV9782_Color", ros::Time(0), ros::Duration(1.0));
-        listener.lookupTransform("/World", "/Camera_OmniVision_OV9782_Color", ros::Time(0), transform);
+        listener.waitForTransform("/Neo", "/Camera_OmniVision_OV9782_Color", ros::Time(0), ros::Duration(1.0));
+        listener.lookupTransform("/Neo", "/Camera_OmniVision_OV9782_Color", ros::Time(0), transform);
 
         // Apply the transform to each point manually
         for (auto& point : correctedCloud->points) {
-            tf::Vector3 point_cam(point.x, point.y, point.z);
-            tf::Vector3 point_world = transform * point_cam;
-            point.x = point_world.x();
-            point.y = point_world.y();
-            point.z = point_world.z();
+            tf::Vector3 pointCam(point.x, point.y, point.z);
+            tf::Vector3 pointWorld = transform * pointCam;
+            point.x = pointWorld.x();
+            point.y = pointWorld.y();
+            point.z = pointWorld.z();
         }
 
         // Convert to PointCloud2
