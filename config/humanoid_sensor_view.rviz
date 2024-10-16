@@ -151,53 +151,86 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
+        Camera_OmniVision_OV9782_Color:
+          {}
+        Lidar:
+          {}
+        Neo:
+          {}
+        Realsense:
+          {}
         World:
-          odom:
-            Neo:
-              link_pelvis:
-                link_abdomen:
-                  link_torso:
-                    link_l_scapula:
-                      link_l_shoulder:
-                        link_l_upper_arm:
-                          link_l_elbow:
-                            link_l_lower_arm:
-                              link_l_wrist:
-                                link_l_hand:
-                                  {}
-                    link_neck_z:
-                      link_neck_xy:
-                        Lidar:
-                          {}
-                        Realsense:
-                          Camera_OmniVision_OV9782_Color:
-                            {}
-                        link_head:
-                          {}
-                    link_r_scapula:
-                      link_r_shoulder:
-                        link_r_upper_arm:
-                          link_r_elbow:
-                            link_r_lower_arm:
-                              link_r_wrist:
-                                link_r_hand:
-                                  {}
-                link_l_upper_hip:
-                  link_l_lower_hip:
-                    link_l_thigh:
-                      link_l_patella:
-                        link_l_shin:
-                          link_l_ankle:
-                            link_l_foot:
-                              {}
-                link_r_upper_hip:
-                  link_r_lower_hip:
-                    link_r_thigh:
-                      link_r_patella:
-                        link_r_shin:
-                          link_r_ankle:
-                            link_r_foot:
-                              {}
+          {}
+        link_abdomen:
+          {}
+        link_head:
+          {}
+        link_l_ankle:
+          {}
+        link_l_elbow:
+          {}
+        link_l_foot:
+          {}
+        link_l_hand:
+          {}
+        link_l_lower_arm:
+          {}
+        link_l_lower_hip:
+          {}
+        link_l_patella:
+          {}
+        link_l_scapula:
+          {}
+        link_l_shin:
+          {}
+        link_l_shoulder:
+          {}
+        link_l_thigh:
+          {}
+        link_l_upper_arm:
+          {}
+        link_l_upper_hip:
+          {}
+        link_l_wrist:
+          {}
+        link_neck_xy:
+          {}
+        link_neck_z:
+          {}
+        link_pelvis:
+          {}
+        link_r_ankle:
+          {}
+        link_r_elbow:
+          {}
+        link_r_foot:
+          {}
+        link_r_hand:
+          {}
+        link_r_lower_arm:
+          {}
+        link_r_lower_hip:
+          {}
+        link_r_patella:
+          {}
+        link_r_scapula:
+          {}
+        link_r_shin:
+          {}
+        link_r_shoulder:
+          {}
+        link_r_thigh:
+          {}
+        link_r_upper_arm:
+          {}
+        link_r_upper_hip:
+          {}
+        link_r_wrist:
+          {}
+        link_torso:
+          {}
+        odom:
+          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -441,132 +474,7 @@ Visualization Manager:
       Marker Topic: /plane_seg/hull_marker_array
       Name: /plane_seg/hull_marker_array
       Namespaces:
-        hull_0: true
-        hull_1: true
-        hull_10: true
-        hull_100: true
-        hull_101: true
-        hull_102: true
-        hull_103: true
-        hull_104: true
-        hull_105: true
-        hull_106: true
-        hull_107: true
-        hull_108: true
-        hull_109: true
-        hull_11: true
-        hull_110: true
-        hull_111: true
-        hull_112: true
-        hull_113: true
-        hull_114: true
-        hull_115: true
-        hull_116: true
-        hull_117: true
-        hull_118: true
-        hull_119: true
-        hull_12: true
-        hull_120: true
-        hull_121: true
-        hull_122: true
-        hull_123: true
-        hull_124: true
-        hull_125: true
-        hull_13: true
-        hull_14: true
-        hull_15: true
-        hull_16: true
-        hull_17: true
-        hull_18: true
-        hull_19: true
-        hull_2: true
-        hull_20: true
-        hull_21: true
-        hull_22: true
-        hull_23: true
-        hull_24: true
-        hull_25: true
-        hull_26: true
-        hull_27: true
-        hull_28: true
-        hull_29: true
-        hull_3: true
-        hull_30: true
-        hull_31: true
-        hull_32: true
-        hull_33: true
-        hull_34: true
-        hull_35: true
-        hull_36: true
-        hull_37: true
-        hull_38: true
-        hull_39: true
-        hull_4: true
-        hull_40: true
-        hull_41: true
-        hull_42: true
-        hull_43: true
-        hull_44: true
-        hull_45: true
-        hull_46: true
-        hull_47: true
-        hull_48: true
-        hull_49: true
-        hull_5: true
-        hull_50: true
-        hull_51: true
-        hull_52: true
-        hull_53: true
-        hull_54: true
-        hull_55: true
-        hull_56: true
-        hull_57: true
-        hull_58: true
-        hull_59: true
-        hull_6: true
-        hull_60: true
-        hull_61: true
-        hull_62: true
-        hull_63: true
-        hull_64: true
-        hull_65: true
-        hull_66: true
-        hull_67: true
-        hull_68: true
-        hull_69: true
-        hull_7: true
-        hull_70: true
-        hull_71: true
-        hull_72: true
-        hull_73: true
-        hull_74: true
-        hull_75: true
-        hull_76: true
-        hull_77: true
-        hull_78: true
-        hull_79: true
-        hull_8: true
-        hull_80: true
-        hull_81: true
-        hull_82: true
-        hull_83: true
-        hull_84: true
-        hull_85: true
-        hull_86: true
-        hull_87: true
-        hull_88: true
-        hull_89: true
-        hull_9: true
-        hull_90: true
-        hull_91: true
-        hull_92: true
-        hull_93: true
-        hull_94: true
-        hull_95: true
-        hull_96: true
-        hull_97: true
-        hull_98: true
-        hull_99: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -574,7 +482,7 @@ Visualization Manager:
       Marker Topic: /plane_seg/hull_markers
       Name: /plane_seg/hull_markers
       Namespaces:
-        hull lines: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1
@@ -621,7 +529,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.512877464294434
+      Distance: 11.932953834533691
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -637,9 +545,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.48479580879211426
+      Pitch: 0.7197949290275574
       Target Frame: <Fixed Frame>
-      Yaw: 2.19539213180542
+      Yaw: 1.925398826599121
     Saved: ~
 Window Geometry:
   Depth:
