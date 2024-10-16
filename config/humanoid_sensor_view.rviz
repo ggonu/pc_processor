@@ -1,0 +1,665 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /TF1
+        - /merged_cloud1
+        - /merged_cloud1/Status1
+        - /trans_depth_pcd1/Status1
+        - /DBSCAN_pcd1/Status1
+        - /DBSCAN_edge1/Status1
+        - //plane_seg/look_pose1/Status1
+      Splitter Ratio: 0.5454545617103577
+    Tree Height: 797
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Name: Time
+    SyncMode: 0
+    SyncSource: LaserScan
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        Camera_OmniVision_OV9782_Color:
+          Value: true
+        Lidar:
+          Value: true
+        Neo:
+          Value: true
+        Realsense:
+          Value: true
+        World:
+          Value: true
+        link_abdomen:
+          Value: true
+        link_head:
+          Value: true
+        link_l_ankle:
+          Value: true
+        link_l_elbow:
+          Value: true
+        link_l_foot:
+          Value: true
+        link_l_hand:
+          Value: true
+        link_l_lower_arm:
+          Value: true
+        link_l_lower_hip:
+          Value: true
+        link_l_patella:
+          Value: true
+        link_l_scapula:
+          Value: true
+        link_l_shin:
+          Value: true
+        link_l_shoulder:
+          Value: true
+        link_l_thigh:
+          Value: true
+        link_l_upper_arm:
+          Value: true
+        link_l_upper_hip:
+          Value: true
+        link_l_wrist:
+          Value: true
+        link_neck_xy:
+          Value: true
+        link_neck_z:
+          Value: true
+        link_pelvis:
+          Value: true
+        link_r_ankle:
+          Value: true
+        link_r_elbow:
+          Value: true
+        link_r_foot:
+          Value: true
+        link_r_hand:
+          Value: true
+        link_r_lower_arm:
+          Value: true
+        link_r_lower_hip:
+          Value: true
+        link_r_patella:
+          Value: true
+        link_r_scapula:
+          Value: true
+        link_r_shin:
+          Value: true
+        link_r_shoulder:
+          Value: true
+        link_r_thigh:
+          Value: true
+        link_r_upper_arm:
+          Value: true
+        link_r_upper_hip:
+          Value: true
+        link_r_wrist:
+          Value: true
+        link_torso:
+          Value: true
+        odom:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        World:
+          odom:
+            Neo:
+              link_pelvis:
+                link_abdomen:
+                  link_torso:
+                    link_l_scapula:
+                      link_l_shoulder:
+                        link_l_upper_arm:
+                          link_l_elbow:
+                            link_l_lower_arm:
+                              link_l_wrist:
+                                link_l_hand:
+                                  {}
+                    link_neck_z:
+                      link_neck_xy:
+                        Lidar:
+                          {}
+                        Realsense:
+                          Camera_OmniVision_OV9782_Color:
+                            {}
+                        link_head:
+                          {}
+                    link_r_scapula:
+                      link_r_shoulder:
+                        link_r_upper_arm:
+                          link_r_elbow:
+                            link_r_lower_arm:
+                              link_r_wrist:
+                                link_r_hand:
+                                  {}
+                link_l_upper_hip:
+                  link_l_lower_hip:
+                    link_l_thigh:
+                      link_l_patella:
+                        link_l_shin:
+                          link_l_ankle:
+                            link_l_foot:
+                              {}
+                link_r_upper_hip:
+                  link_r_lower_hip:
+                    link_r_thigh:
+                      link_r_patella:
+                        link_r_shin:
+                          link_r_ankle:
+                            link_r_foot:
+                              {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: -0.8608487844467163
+        Min Value: -0.8720896244049072
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Lidar
+      Position Transformer: XYZ
+      Queue Size: 10000
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /point_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10000
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 2.240654230117798
+        Min Value: -0.5184762477874756
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 138; 226; 52
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 138; 226; 52
+      Min Color: 0; 0; 0
+      Name: merged_cloud
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /merged_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /rgb
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: RGB
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /depth
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Depth
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 47.44865798950195
+        Min Value: 1.4052586555480957
+        Value: true
+      Axis: Z
+      Channel Name: Intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: true
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: trans_depth_pcd
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.004999999888241291
+      Style: Flat Squares
+      Topic: /trans_depth_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 47.44865798950195
+        Min Value: 1.4052586555480957
+        Value: true
+      Axis: Z
+      Channel Name: Intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: true
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: depth_pcd
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.004999999888241291
+      Style: Flat Squares
+      Topic: /plane_seg/received_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: -9999
+        Min Value: 9999
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: true
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: DBSCAN_pcd
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.029999999329447746
+      Style: Flat Squares
+      Topic: /dbscan_clusters
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /dbscan_cluster_centroids
+      Name: DBSCAN_edge
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /edge_detection/detected_edges
+      Name: edge_detection
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: /plane_seg/hull_cloud
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /plane_seg/hull_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /plane_seg/hull_marker_array
+      Name: /plane_seg/hull_marker_array
+      Namespaces:
+        hull_0: true
+        hull_1: true
+        hull_10: true
+        hull_100: true
+        hull_101: true
+        hull_102: true
+        hull_103: true
+        hull_104: true
+        hull_105: true
+        hull_106: true
+        hull_107: true
+        hull_108: true
+        hull_109: true
+        hull_11: true
+        hull_110: true
+        hull_111: true
+        hull_112: true
+        hull_113: true
+        hull_114: true
+        hull_115: true
+        hull_116: true
+        hull_117: true
+        hull_118: true
+        hull_119: true
+        hull_12: true
+        hull_120: true
+        hull_121: true
+        hull_122: true
+        hull_123: true
+        hull_124: true
+        hull_125: true
+        hull_13: true
+        hull_14: true
+        hull_15: true
+        hull_16: true
+        hull_17: true
+        hull_18: true
+        hull_19: true
+        hull_2: true
+        hull_20: true
+        hull_21: true
+        hull_22: true
+        hull_23: true
+        hull_24: true
+        hull_25: true
+        hull_26: true
+        hull_27: true
+        hull_28: true
+        hull_29: true
+        hull_3: true
+        hull_30: true
+        hull_31: true
+        hull_32: true
+        hull_33: true
+        hull_34: true
+        hull_35: true
+        hull_36: true
+        hull_37: true
+        hull_38: true
+        hull_39: true
+        hull_4: true
+        hull_40: true
+        hull_41: true
+        hull_42: true
+        hull_43: true
+        hull_44: true
+        hull_45: true
+        hull_46: true
+        hull_47: true
+        hull_48: true
+        hull_49: true
+        hull_5: true
+        hull_50: true
+        hull_51: true
+        hull_52: true
+        hull_53: true
+        hull_54: true
+        hull_55: true
+        hull_56: true
+        hull_57: true
+        hull_58: true
+        hull_59: true
+        hull_6: true
+        hull_60: true
+        hull_61: true
+        hull_62: true
+        hull_63: true
+        hull_64: true
+        hull_65: true
+        hull_66: true
+        hull_67: true
+        hull_68: true
+        hull_69: true
+        hull_7: true
+        hull_70: true
+        hull_71: true
+        hull_72: true
+        hull_73: true
+        hull_74: true
+        hull_75: true
+        hull_76: true
+        hull_77: true
+        hull_78: true
+        hull_79: true
+        hull_8: true
+        hull_80: true
+        hull_81: true
+        hull_82: true
+        hull_83: true
+        hull_84: true
+        hull_85: true
+        hull_86: true
+        hull_87: true
+        hull_88: true
+        hull_89: true
+        hull_9: true
+        hull_90: true
+        hull_91: true
+        hull_92: true
+        hull_93: true
+        hull_94: true
+        hull_95: true
+        hull_96: true
+        hull_97: true
+        hull_98: true
+        hull_99: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /plane_seg/hull_markers
+      Name: /plane_seg/hull_markers
+      Namespaces:
+        hull lines: true
+      Queue Size: 100
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: /plane_seg/look_pose
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Axes
+      Topic: /plane_seg/look_pose
+      Unreliable: false
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 211; 215; 207
+    Default Light: true
+    Fixed Frame: World
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 9.512877464294434
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Field of View: 0.7853981852531433
+      Focal Point:
+        X: 1.9337387084960938
+        Y: -0.4834132492542267
+        Z: -0.16968655586242676
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.48479580879211426
+      Target Frame: <Fixed Frame>
+      Yaw: 2.19539213180542
+    Saved: ~
+Window Geometry:
+  Depth:
+    collapsed: false
+  Displays:
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd00000004000000000000016d0000035afc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000035a000000c900fffffffb0000000a0049006d00610067006500000001440000008b0000000000000000fb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb00000006005200470042000000029a000000fd0000001600fffffffb0000000a00440065007000740068000000020d0000018a0000001600ffffff00000001000001b0000002eafc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d000002ea000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007380000003efc0100000002fb0000000800540069006d0065010000000000000738000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000005c50000035a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  RGB:
+    collapsed: false
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1848
+  X: 72
+  Y: 27

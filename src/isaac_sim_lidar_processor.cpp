@@ -56,9 +56,9 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "lidar_processor");
     ros::NodeHandle nh;
 
-    ros::Subscriber sub = nh.subscribe("/point_cloud", 1, pointCloudCallBack);
+    ros::Subscriber sub = nh.subscribe("/point_cloud", 100, pointCloudCallBack);
 
-    pub = nh.advertise<sensor_msgs::PointCloud2>("/processed_cloud", 1);
+    pub = nh.advertise<sensor_msgs::PointCloud2>("/processed_cloud", 100);
 
     ros::spin();
     return 0;
