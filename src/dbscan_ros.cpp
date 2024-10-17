@@ -85,7 +85,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Apply down-sampling using VoxelGrid filter (before normal estimation)
     pcl::VoxelGrid<pcl::PointXYZ> vg;
     vg.setInputCloud(cCloud);
-    vg.setLeafSize(0.1f, 0.1f, 0.1f); // Adjust for down-sampling // default: 0.2f, 0.2f, 0.2f
+    vg.setLeafSize(0.5f, 0.5f, 0.5f); // Adjust for down-sampling // default: 0.2f, 0.2f, 0.2f
     pcl::PointCloud<pcl::PointXYZ>::Ptr filteredCloud(new pcl::PointCloud<pcl::PointXYZ>());
     vg.filter(*filteredCloud);
 
