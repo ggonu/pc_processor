@@ -1,25 +1,29 @@
 #include <ros/ros.h>
+
+
 #include <sensor_msgs/PointCloud2.h>
+
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/filters/passthrough.h>
 
-                        // Uncomment macro to Activate to using Voxel Grid Filter
+
+// --- Define Macros --- //
+                        // Uncomment Macro to Activate to using Voxel Grid Filter
 #define VOXEL_FILTER    // Commnet to Deactivate
 #ifdef VOXEL_FILTER
 #include <pcl/filters/voxel_grid.h>
+#define LEAF_SIZE 0.03f
 #endif
-
-                        // Uncommnet macro to Activate to Debugging - check the taken time for processing
+                        // Uncommnet Macro to Activate to Debugging - check the taken time for processing
 #define WITH_TIMING     // Comment to Deactivate
 #ifdef WITH_TIMING
 #include <chrono>
 #endif
 
 
-#define LEAF_SIZE 0.01f
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr mCloud(new pcl::PointCloud<pcl::PointXYZ>());
 ros::Publisher pub;
@@ -70,9 +74,9 @@ void pointCloudCallBack(const sensor_msgs::PointCloud2ConstPtr& msg) {
         pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
         sensor_msgs::PointCloud2 output;
         filterPointCloud(mCloud, fCloud);
+        std::cout << "[Filtering] Number of points: " << fCloud->size() << std::endl;
         pcl::toROSMsg(*fCloud, output);
         output.header = msg->header;
-        std::cout << "[Filtering] Number of points: " << fCloud->size() << std::endl;
         pub.publish(output);
 
         mCloud->clear();
@@ -84,9 +88,9 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "merge_cloud");
     ros::NodeHandle nh;
 
-    ros::Subscriber sub = nh.subscribe("/point_cloud", 1, pointCloudCallBack);
+    ros::Subscriber sub = nh.subscribe("/point_cloud", 100, pointCloudCallBack);
 
-    pub = nh.advertise<sensor_msgs::PointCloud2>("/merged_cloud", 1);
+    pub = nh.advertise<sensor_msgs::PointCloud2>("/merged_cloud", 100);
 
     ros::spin();
     return 0;
