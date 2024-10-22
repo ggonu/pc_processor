@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "merge_cloud");
     ros::NodeHandle nh;
 
-    ros::Subscriber sub = nh.subscribe("/point_cloud", 100, pointCloudCallBack);
+    ros::Subscriber sub = nh.subscribe("/point_cloud", 100, pointCloudCallBack);  // default: "/point_cloud"
 
     pub = nh.advertise<sensor_msgs::PointCloud2>("/merged_cloud", 100);
 

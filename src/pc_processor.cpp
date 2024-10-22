@@ -1,11 +1,27 @@
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
+#include <tf/transform_listener.h>
+
 #include <pcl_ros/point_cloud.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <tf/transform_listener.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl/filters/passthrough.h>
+
 #include <cmath>
+
+// --- Define Macros --- //
+                        // Uncomment Macro to Activate to using Voxel Grid Filter
+#define VOXEL_FILTER    // Commnet to Deactivate
+#ifdef VOXEL_FILTER
+#include <pcl/filters/voxel_grid.h>
+#define LEAF_SIZE 0.03f
+#endif
+                        // Uncommnet Macro to Activate to Debugging - check the taken time for processing
+#define WITH_TIMING     // Comment to Deactivate
+#ifdef WITH_TIMING
+#include <chrono>
+#endif
 
 ros::Publisher pub;
 
@@ -15,15 +31,47 @@ static double k2 = -0.00037; // Radial distortion coefficient -0.00037
 static double p1 = -0.00074; // Tangential distortion coefficient -0.00074
 static double p2 = -0.00058; // Tangential distortion coefficient -0.00058
 
+void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& fCloud) {
+    #ifdef WITH_TIMING
+        auto tic = std::chrono::high_resolution_clock::now();
+    #endif
+
+    pcl::PassThrough<pcl::PointXYZ> p;
+    p.setInputCloud(iCloud);
+    p.setFilterFieldName("x");
+    p.setFilterLimits(-0.5, 0.5);
+    p.filter(*fCloud);
+
+    p.setInputCloud(iCloud);
+    p.setFilterFieldName("y");
+    p.setFilterLimits(-2.0, 2.0);
+    p.filter(*fCloud);
+
+    #ifdef VOXEL_FILTER
+    pcl::VoxelGrid<pcl::PointXYZ> vg;
+    vg.setInputCloud(fCloud);
+    vg.setLeafSize(LEAF_SIZE, LEAF_SIZE, LEAF_SIZE);
+    vg.filter(*fCloud);
+    #endif
+    #ifdef WITH_TIMING
+        auto toc = std::chrono::high_resolution_clock::now();
+
+        std::cout << "[Filtering] took " << 1e-3 * std::chrono::duration_cast<std::chrono::microseconds>(toc - tic).count() << "ms" << std::endl;
+    #endif
+}
+
 void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Convert PointCloud2 msg to PCL format
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+    pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
     pcl::fromROSMsg(*cloudMsg, *cloud);
+    filterPointCloud(cloud, fCloud);
+    std::cout << "[Filtering] Number of points: " << fCloud->size() << std::endl;
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr correctedCloud(new pcl::PointCloud<pcl::PointXYZ>());
 
     // Apply distortion correction
-    for (const auto& point : cloud->points) {
+    for (const auto& point : fCloud->points) {
         if (point.z > 0) {
             // Compute normalized coordinates
             double x_normalized = point.x / point.z;

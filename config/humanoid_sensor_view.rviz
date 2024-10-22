@@ -6,14 +6,17 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1
-        - /TF1/Frames1
-        - /trans_depth_pcd1/Status1
-        - /DBSCAN_pcd1/Status1
+        - /merged_cloud1
+        - //plane_seg/received_cloud1
         - //plane_seg/received_cloud1/Status1
+        - //plane_seg/hull_cloud1
+        - //plane_seg/hull_cloud1/Status1
+        - //plane_seg/hull_marker_array1
+        - //plane_seg/hull_markers1
         - //plane_seg/hull_markers1/Status1
         - //plane_seg/look_pose1
         - //plane_seg/look_pose1/Status1
-      Splitter Ratio: 0.5454545617103577
+      Splitter Ratio: 0.4986225962638855
     Tree Height: 797
   - Class: rviz/Selection
     Name: Selection
@@ -59,92 +62,12 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Filter (blacklist): ""
       Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
-        All Enabled: false
-        Camera_OmniVision_OV9782_Color:
-          Value: false
-        Lidar:
-          Value: true
-        Neo:
-          Value: true
-        Realsense:
-          Value: false
-        World:
-          Value: false
-        link_abdomen:
-          Value: false
-        link_head:
-          Value: false
-        link_l_ankle:
-          Value: false
-        link_l_elbow:
-          Value: false
-        link_l_foot:
-          Value: false
-        link_l_hand:
-          Value: false
-        link_l_lower_arm:
-          Value: false
-        link_l_lower_hip:
-          Value: false
-        link_l_patella:
-          Value: false
-        link_l_scapula:
-          Value: false
-        link_l_shin:
-          Value: false
-        link_l_shoulder:
-          Value: false
-        link_l_thigh:
-          Value: false
-        link_l_upper_arm:
-          Value: false
-        link_l_upper_hip:
-          Value: false
-        link_l_wrist:
-          Value: false
-        link_neck_xy:
-          Value: false
-        link_neck_z:
-          Value: false
-        link_pelvis:
-          Value: false
-        link_r_ankle:
-          Value: false
-        link_r_elbow:
-          Value: false
-        link_r_foot:
-          Value: false
-        link_r_hand:
-          Value: false
-        link_r_lower_arm:
-          Value: false
-        link_r_lower_hip:
-          Value: false
-        link_r_patella:
-          Value: false
-        link_r_scapula:
-          Value: false
-        link_r_shin:
-          Value: false
-        link_r_shoulder:
-          Value: false
-        link_r_thigh:
-          Value: false
-        link_r_upper_arm:
-          Value: false
-        link_r_upper_hip:
-          Value: false
-        link_r_wrist:
-          Value: false
-        link_torso:
-          Value: false
-        odom:
-          Value: false
+        All Enabled: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -152,60 +75,14 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        World:
-          odom:
-            Neo:
-              link_pelvis:
-                link_abdomen:
-                  link_torso:
-                    link_l_scapula:
-                      link_l_shoulder:
-                        link_l_upper_arm:
-                          link_l_elbow:
-                            link_l_lower_arm:
-                              link_l_wrist:
-                                link_l_hand:
-                                  {}
-                    link_neck_z:
-                      link_neck_xy:
-                        Lidar:
-                          {}
-                        Realsense:
-                          Camera_OmniVision_OV9782_Color:
-                            {}
-                        link_head:
-                          {}
-                    link_r_scapula:
-                      link_r_shoulder:
-                        link_r_upper_arm:
-                          link_r_elbow:
-                            link_r_lower_arm:
-                              link_r_wrist:
-                                link_r_hand:
-                                  {}
-                link_l_upper_hip:
-                  link_l_lower_hip:
-                    link_l_thigh:
-                      link_l_patella:
-                        link_l_shin:
-                          link_l_ankle:
-                            link_l_foot:
-                              {}
-                link_r_upper_hip:
-                  link_r_lower_hip:
-                    link_r_thigh:
-                      link_r_patella:
-                        link_r_shin:
-                          link_r_ankle:
-                            link_r_foot:
-                              {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: -0.229667067527771
-        Min Value: -0.8737924098968506
+        Max Value: -0.28062957525253296
+        Min Value: -0.8563236594200134
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -430,7 +307,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.05000000074505806
       Style: Flat Squares
       Topic: /plane_seg/hull_cloud
       Unreliable: false
@@ -438,16 +315,13 @@ Visualization Manager:
       Use rainbow: true
       Value: true
     - Class: rviz/MarkerArray
-      Enabled: true
+      Enabled: false
       Marker Topic: /plane_seg/hull_marker_array
       Name: /plane_seg/hull_marker_array
       Namespaces:
-        hull_0: true
-        hull_1: true
-        hull_2: true
-        hull_3: true
+        {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /plane_seg/hull_markers
@@ -500,7 +374,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.372398376464844
+      Distance: 4.275461196899414
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -508,17 +382,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.120304822921753
-        Y: -0.025801416486501694
-        Z: -0.43878117203712463
+        X: 0.6504446864128113
+        Y: 0.224592387676239
+        Z: -0.6554594039916992
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6852025389671326
+      Pitch: 0.9997968673706055
       Target Frame: <Fixed Frame>
-      Yaw: 2.2086005210876465
+      Yaw: 2.5886900424957275
     Saved: ~
 Window Geometry:
   Depth:
