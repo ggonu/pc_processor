@@ -25,44 +25,6 @@
 
 ros::Publisher pub;
 
-// #define UNDISTORTION
-#ifdef UNDISTORTION
-#include <sensor_msgs/point_cloud2_iterator.h>
-
-// Parameters (Intel RealSense D455)
-float k1 = 0.00245;
-float k2 = 0.0;
-float k3 = 0.0;
-float p0 = -0.00037;
-float p1 = -0.00074;
-
-float f  = 1.9299999475479126 * 1000;   // Focal length
-float cx = 970.94244;   // Optical center
-float cy = 600.37482;   // Optical center
-
-
-void unDistortion(float& x, float& y, float& z) {
-    float r2 = x*x + y*y;
-
-    // Radial distortion
-    float radialDistort = 1 + k1*r2 + k2*r2*r2 + k3*r2*r2*r2;
-    x *= radialDistort;
-    y *= radialDistort;
-
-    // Tangential distortion
-    float xTangent = 2*p0*x*y + p1*(r2 + 2*x*x);
-    float yTangent = p0*(r2 + 2*y*y) + 2*p1*x*y;
-
-    x += xTangent;
-    y += yTangent;
-
-    float x_corr = f*x / z + f;
-    float y_corr = f*y / z * f;
-
-    x = (x_corr - cx)*z / f;
-    y = (y_corr - cy)*z / f;
-}
-#endif
 
 void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& fCloud) {
     #ifdef WITH_TIMING
@@ -98,23 +60,6 @@ void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Convert PointCloud2 msg to PCL format
     pcl::PointCloud<pcl::PointXYZ>::Ptr cCloud(new pcl::PointCloud<pcl::PointXYZ>());
     pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
-    // pcl::fromROSMsg(cloud, *cCloud);
-
-    #ifdef UNDISTORTION
-        sensor_msgs::PointCloud2Modifier modifier(cloud);
-        sensor_msgs::PointCloud2Iterator<float> xIter(cloud, "x");
-        sensor_msgs::PointCloud2Iterator<float> yIter(cloud, "y");
-        sensor_msgs::PointCloud2Iterator<float> zIter(cloud, "z");
-
-        for (; xIter != xIter.end(); ++xIter, ++yIter, ++zIter) {
-            float x = *xIter;
-            float y = *yIter;
-            float z = *zIter;
-
-            // Apply distortion correction
-            unDistortion(x, y, z);
-        }        
-    #endif
     pcl::fromROSMsg(cloud, *cCloud);
 
     // Filter the point cloud
