@@ -25,7 +25,7 @@
 
 ros::Publisher pub;
 
-#define UNDISTORTION
+// #define UNDISTORTION
 #ifdef UNDISTORTION
 #include <sensor_msgs/point_cloud2_iterator.h>
 
@@ -36,11 +36,16 @@ float k3 = 0.0;
 float p0 = -0.00037;
 float p1 = -0.00074;
 
+float f  = 1.9299999475479126 * 1000;   // Focal length
+float cx = 970.94244;   // Optical center
+float cy = 600.37482;   // Optical center
+
+
 void unDistortion(float& x, float& y, float& z) {
     float r2 = x*x + y*y;
 
     // Radial distortion
-    float radialDistort = 1 + k1 * r2 + k2 * r2 * r2 + k3 * r2 * r2 * r2;
+    float radialDistort = 1 + k1*r2 + k2*r2*r2 + k3*r2*r2*r2;
     x *= radialDistort;
     y *= radialDistort;
 
@@ -50,6 +55,12 @@ void unDistortion(float& x, float& y, float& z) {
 
     x += xTangent;
     y += yTangent;
+
+    float x_corr = f*x / z + f;
+    float y_corr = f*y / z * f;
+
+    x = (x_corr - cx)*z / f;
+    y = (y_corr - cy)*z / f;
 }
 #endif
 
@@ -87,7 +98,7 @@ void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     // Convert PointCloud2 msg to PCL format
     pcl::PointCloud<pcl::PointXYZ>::Ptr cCloud(new pcl::PointCloud<pcl::PointXYZ>());
     pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
-    pcl::fromROSMsg(cloud, *cCloud);
+    // pcl::fromROSMsg(cloud, *cCloud);
 
     #ifdef UNDISTORTION
         sensor_msgs::PointCloud2Modifier modifier(cloud);
@@ -102,8 +113,9 @@ void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
 
             // Apply distortion correction
             unDistortion(x, y, z);
-        }
+        }        
     #endif
+    pcl::fromROSMsg(cloud, *cCloud);
 
     // Filter the point cloud
     filterPointCloud(cCloud, fCloud);
@@ -113,8 +125,8 @@ void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloudMsg) {
     static tf::TransformListener listener;
     tf::StampedTransform transform;
     try {
-        listener.waitForTransform("/Neo", "/Camera_OmniVision_OV9782_Color", ros::Time(0), ros::Duration(1.0));
-        listener.lookupTransform("/Neo", "/Camera_OmniVision_OV9782_Color", ros::Time(0), transform);
+        listener.waitForTransform("/Neo", "/Camera_Pseudo_Depth", ros::Time(0), ros::Duration(1.0));
+        listener.lookupTransform("/Neo", "/Camera_Pseudo_Depth", ros::Time(0), transform);
 
         // Apply the transform to each point manually
         for (auto& point : fCloud->points) {
@@ -141,10 +153,10 @@ int main(int argc, char** argv) {
     ros::NodeHandle nh;
 
     // Publish PointCloud2 topic "/trans_depth_cloud"
-    pub = nh.advertise<sensor_msgs::PointCloud2>("trans_depth_cloud", 10);
+    pub = nh.advertise<sensor_msgs::PointCloud2>("trans_depth_cloud", 1);  // trans_depth_cloud
 
     // Subscribe the topic "/depth_cloud"
-    ros::Subscriber sub = nh.subscribe("/depth_cloud", 10, pointCloudCallback);
+    ros::Subscriber sub = nh.subscribe("/d455_depth_cloud", 1, pointCloudCallback);
 
     ros::spin();
     return 0;
