@@ -24,11 +24,13 @@ include_directories(
 )
 
 add_library(dbscan_lib include/dbscan.cpp)
+add_library(filtering src/filtering.cpp)
 
 add_executable(pc_processor src/pc_processor.cpp)
 add_executable(dbscan src/dbscan_ros.cpp)
 add_executable(merge_cloud src/merge_cloud.cpp)
 add_executable(d455 src/d455.cpp)
+add_executable(d435i src/d435i.cpp)
 
 target_link_libraries(pc_processor
   ${catkin_LIBRARIES}
@@ -50,4 +52,10 @@ target_link_libraries(merge_cloud
 target_link_libraries(d455
   ${catkin_LIBRARIES}
   ${PCL_INCLUDE_DIRS}
+)
+
+target_link_libraries(d435i
+  ${catkin_LIBRARIES}
+  ${PCL_INCLUDE_DIRS}
+  filtering
 )

@@ -6,21 +6,26 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <pcl/filters/passthrough.h>
 
 #include <cmath>
 
 // --- Define Macros --- //
+                         // Uncomment Macro to Activate to using Pass Through Filter
+#define PASSTH_FILTER    // Comment to Deactivate
+#ifdef PASSTH_FILTER
+    #include <pcl/filters/passthrough.h>
+#endif
+
                         // Uncomment Macro to Activate to using Voxel Grid Filter
 #define VOXEL_FILTER    // Comment to Deactivate
 #ifdef VOXEL_FILTER
-#include <pcl/filters/voxel_grid.h>
-#define LEAF_SIZE 0.03f
+    #include <pcl/filters/voxel_grid.h>
+    #define LEAF_SIZE 0.03f
 #endif
                         // Uncomment Macro to Activate Debugging - check the taken time for processing
 #define WITH_TIMING     // Comment to Deactivate
 #ifdef WITH_TIMING
-#include <chrono>
+    #include <chrono>
 #endif
 
 ros::Publisher pub;
@@ -31,22 +36,24 @@ void filterPointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::Po
         auto tic = std::chrono::high_resolution_clock::now();
     #endif
 
-    pcl::PassThrough<pcl::PointXYZ> p;
-    p.setInputCloud(iCloud);
-    p.setFilterFieldName("x");
-    p.setFilterLimits(-3.0, 3.0);
-    p.filter(*fCloud);
+    #ifdef PASSTH_FILTER
+        pcl::PassThrough<pcl::PointXYZ> p;
+        p.setInputCloud(iCloud);
+        p.setFilterFieldName("x");
+        p.setFilterLimits(-3.0, 3.0);
+        p.filter(*fCloud);
 
-    p.setInputCloud(iCloud);
-    p.setFilterFieldName("y");
-    p.setFilterLimits(-2.0, 2.0);
-    p.filter(*fCloud);
+        p.setInputCloud(fCloud);
+        p.setFilterFieldName("y");
+        p.setFilterLimits(-2.0, 2.0);
+        p.filter(*fCloud);
+    #endif
 
     #ifdef VOXEL_FILTER
-    pcl::VoxelGrid<pcl::PointXYZ> vg;
-    vg.setInputCloud(fCloud);
-    vg.setLeafSize(LEAF_SIZE, LEAF_SIZE, LEAF_SIZE);
-    vg.filter(*fCloud);
+        pcl::VoxelGrid<pcl::PointXYZ> vg;
+        vg.setInputCloud(fCloud);
+        vg.setLeafSize(LEAF_SIZE, LEAF_SIZE, LEAF_SIZE);
+        vg.filter(*fCloud);
     #endif
     #ifdef WITH_TIMING
         auto toc = std::chrono::high_resolution_clock::now();
