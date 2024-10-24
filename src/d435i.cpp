@@ -33,7 +33,7 @@ void cloud_callback(const sensor_msgs::PointCloud2ConstPtr& msg) {
 
     #ifdef FILTERING
         pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
-        FilterVoxelGrid(0.03, cloudXyz, fCloud);
+        filterVoxelGrid(0.03f, cloudXyz, fCloud);
     #endif
 
     #ifdef TIMING
@@ -44,7 +44,7 @@ void cloud_callback(const sensor_msgs::PointCloud2ConstPtr& msg) {
 
     // pcl::PointCloud -> sensor_msgs::PointCloud2
     sensor_msgs::PointCloud2 output;
-    pcl::toROSMsg(*cloudXyz, output);
+    pcl::toROSMsg(*fCloud, output);
 
     output.header = msg->header;
 

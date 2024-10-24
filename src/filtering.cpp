@@ -31,7 +31,7 @@ void filterPassThrough(const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::P
     #endif
 }
 
-void FilterVoxelGrid(float leafSize, const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& fCloud) {
+void filterVoxelGrid(auto leafSize, const pcl::PointCloud<pcl::PointXYZ>::Ptr& iCloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& fCloud) {
     #ifdef TIMING
         auto tic = std::chrono::high_resolution_clock::now();
     #endif
