@@ -7,6 +7,12 @@
 #define FILTERING
 #ifdef FILTERING
     #include "filtering.cpp"
+    #define LEAF_SIZE 0.03f
+#endif
+
+#define TIMING
+#ifdef TIMING
+    #include <chrono>
 #endif
 
 
@@ -30,25 +36,35 @@ void cloud_callback(const sensor_msgs::PointCloud2ConstPtr& msg) {
         p.z = point.z;
         cloudXyz->points.push_back(p);
     }
-
-    #ifdef FILTERING
-        pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
-        filterVoxelGrid(0.03f, cloudXyz, fCloud);
-    #endif
-
+    
     #ifdef TIMING
         auto toc = std::chrono::high_resolution_clock::now();
         std::cout << "[Converting] took " << 1e-3 * std::chrono::duration_cast<std::chrono::microseconds>(toc - tic).count() << "ms" << std::endl;
     #endif
-    std::cout << "[INFO]: Number of points: " << fCloud->size() << std::endl;
 
-    // pcl::PointCloud -> sensor_msgs::PointCloud2
-    sensor_msgs::PointCloud2 output;
-    pcl::toROSMsg(*fCloud, output);
+    #ifdef FILTERING
+        pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
+        filterVoxelGrid(LEAF_SIZE, cloudXyz, fCloud);
 
-    output.header = msg->header;
+        std::cout << "[INFO]: Number of points: " << fCloud->size() << std::endl;
+        // pcl::PointCloud -> sensor_msgs::PointCloud2
+        sensor_msgs::PointCloud2 output;
+        pcl::toROSMsg(*fCloud, output);
 
-    pub.publish(output);
+        output.header = msg->header;
+
+        pub.publish(output);
+    #else
+        std::cout << "[INFO]: Number of points: " << cloudXyz->size() << std::endl;
+        // pcl::PointCloud -> sensor_msgs::PointCloud2
+        sensor_msgs::PointCloud2 output;
+        pcl::toROSMsg(*cloudXyz, output);
+
+        output.header = msg->header;
+
+        pub.publish(output);
+    #endif
+    
 }
 
 int main(int argc, char** argv) {
@@ -57,7 +73,7 @@ int main(int argc, char** argv) {
 
     pub = nh.advertise<sensor_msgs::PointCloud2>("/d435i_cloud", 1);
 
-    ros::Subscriber sub = nh.subscribe("/camera/depth/color/points", 1, cloud_callback);
+    ros::Subscriber sub = nh.subscribe("/camera/depth/color/points", 1, cloud_callback);  // default: /camera/depth/color/points
 
     ros::spin();
 }

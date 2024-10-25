@@ -37,7 +37,7 @@ void filterVoxelGrid(auto leafSize, const pcl::PointCloud<pcl::PointXYZ>::Ptr& i
     #endif
     
     pcl::VoxelGrid<pcl::PointXYZ> vg;
-    vg.setInputCloud(fCloud);
+    vg.setInputCloud(iCloud);
     vg.setLeafSize(leafSize, leafSize, leafSize);
     vg.filter(*fCloud);
 
