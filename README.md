@@ -16,6 +16,8 @@
   sudo apt-get install ros-noetic-pcl-ros ros-noetic-tf ros-noetic-tf2-ros ros-noetic-cv-bridge ros-noetic-pcl-ros libopencv-dev python3-opencv
   ```
   - Or, you can also use `rosdep`
+- **Realsense D435i**
+  - Add info later...
 # 2. Clone & Build
 - Run the following commands in terminal
 - If you don't have any workspaces to use this package...
