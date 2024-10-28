@@ -71,9 +71,10 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "d435i");
     ros::NodeHandle nh;
 
-    pub = nh.advertise<sensor_msgs::PointCloud2>("/d435i_cloud", 1);
+    // ros::Rate rate(10);
+    pub = nh.advertise<sensor_msgs::PointCloud2>("/d435i_cloud", 10);
 
-    ros::Subscriber sub = nh.subscribe("/camera/depth/color/points", 1, cloud_callback);  // default: /camera/depth/color/points
-
+    ros::Subscriber sub = nh.subscribe("/camera/depth/color/points", 10, cloud_callback);  // default: /camera/depth/color/points
+    // rate.sleep();
     ros::spin();
 }
