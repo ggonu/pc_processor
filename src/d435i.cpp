@@ -7,7 +7,7 @@
 #define FILTERING
 #ifdef FILTERING
     #include "filtering.cpp"
-    #define LEAF_SIZE 0.03f
+    #define LEAF_SIZE 0.02f
 #endif
 
 #define TIMING
@@ -44,7 +44,8 @@ void cloud_callback(const sensor_msgs::PointCloud2ConstPtr& msg) {
 
     #ifdef FILTERING
         pcl::PointCloud<pcl::PointXYZ>::Ptr fCloud(new pcl::PointCloud<pcl::PointXYZ>());
-        filterVoxelGrid(LEAF_SIZE, cloudXyz, fCloud);
+        Filtering::PassThrough(cloudXyz, fCloud);
+        Filtering::VoxelGrid(LEAF_SIZE, fCloud, fCloud);
 
         std::cout << "[INFO]: Number of points: " << fCloud->size() << std::endl;
         // pcl::PointCloud -> sensor_msgs::PointCloud2
